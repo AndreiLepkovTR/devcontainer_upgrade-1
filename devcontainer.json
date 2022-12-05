@@ -1,0 +1,45 @@
+{
+  "name": "Devcontainer+AEMContainer",
+  "dockerComposeFile": [
+    "docker-compose.yml"
+  ],
+  "service": "devenv_svc",
+  "workspaceFolder": "/workspace",
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "terminal.integrated.cwd": "/workspace"
+  },
+  "extensions": [
+    "vscjava.vscode-java-pack",      
+    "yamato-ltd.vscode-aem-sync", 
+    "philfontaine.autolaunch"        
+  ],
+  "runServices": [
+    "author_svc"
+  ],
+  "postCreateCommand": "echo '/workspace/.devcontainer/startup.sh' >> ~/.bashrc && chmod +x /workspace/.devcontainer/startup.sh",
+  "postStartCommand": "",
+  "remoteUser": "root",
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "11",
+      "installMaven": true,
+      "mavenVersion": "3.8"
+    },
+    "ghcr.io/devcontainers/features/docker-from-docker:1": {
+      "version": "latest",
+      "moby": false
+    }
+  },
+  "forwardPorts": [
+    4502
+  ],
+  "portsAttributes": {
+    "2222": {
+      "label": "Codespaces SSH"
+    },
+    "4502": {
+      "label": "AEM Author"
+    }
+  }
+}

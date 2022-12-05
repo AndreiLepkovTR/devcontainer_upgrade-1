@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+  devenv_svc:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: 'Devenv'
+    env_file: devcontainer.env
+    init: true
+    network_mode: 'service:author_svc'
+    volumes:
+      - '../:/workspace:cached'
+      - '/var/run/docker.sock:/var/run/docker-host.sock'
+    user: 'root'
+  author_svc:
+    container_name: 'AEMAuthor'
+    hostname: 'AEMAuthor'
+    image: 'tr1-docker.jfrog.io/a204422/aem-docker/aem-author-prebuilt:6.5'
+    ports:
+      - 4502:4502
+    user: 'root'
+    
